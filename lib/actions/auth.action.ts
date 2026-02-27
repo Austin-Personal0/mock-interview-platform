@@ -71,6 +71,7 @@ export async function signIn(params: SignInParams) {
   const { email, idToken } = params;
 
   try {
+
     const userRecord = await auth.getUserByEmail(email);
     if (!userRecord)
       return {
@@ -80,11 +81,10 @@ export async function signIn(params: SignInParams) {
 
     await setSessionCookie(idToken);
   } catch (error: any) {
-    console.log("");
-
+    
     return {
       success: false,
-      message: "Failed to log into account. Please try again.",
+      message: `${error.message}.Please try again.`,
     };
   }
 }

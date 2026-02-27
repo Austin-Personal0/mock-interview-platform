@@ -16,22 +16,31 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={theme as ToasterProps["theme"]}
-      className="toaster group"
+      className="toaster group [&]:space-y-3"
       icons={{
-        success: <CircleCheckIcon className="size-4" />,
-        info: <InfoIcon className="size-4" />,
-        warning: <TriangleAlertIcon className="size-4" />,
-        error: <OctagonXIcon className="size-4" />,
-        loading: <Loader2Icon className="size-4 animate-spin" />,
+        success: <CircleCheckIcon className="size-5 text-green-400 drop-shadow-lg" />,
+        info: <InfoIcon className="size-5 text-blue-400 drop-shadow-lg" />,
+        warning: <TriangleAlertIcon className="size-5 text-amber-400 drop-shadow-lg" />,
+        error: <OctagonXIcon className="size-5 text-red-400 drop-shadow-lg" />,
+        loading: <Loader2Icon className="size-5 animate-spin" />,
       }}
-      style={
-        {
-          "--normal-bg": "var(--popover)",
-          "--normal-text": "var(--popover-foreground)",
-          "--normal-border": "var(--border)",
-          "--border-radius": "var(--radius)",
-        } as React.CSSProperties
-      }
+      style={{
+        "--normal-bg": theme === "dark" ? "rgba(15, 23, 42, 0.88)" : "rgba(255, 255, 255, 0.92)",
+        "--normal-text": theme === "dark" ? "#ffffff" : "#0f172a",
+        "--normal-border": theme === "dark" ? "rgba(71, 85, 105, 0.4)" : "rgba(203, 213, 225, 0.4)",
+        "--border-radius": "14px",
+        "--normal-padding": "16px 18px",
+      } as React.CSSProperties}
+      toastOptions={{
+        classNames: {
+          toast: "backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl",
+          title: "font-semibold text-base tracking-wide text-white dark:text-white text-slate-900",
+
+          actionButton: "bg-primary text-primary-foreground font-medium px-4 py-1.5 rounded-lg transition-colors hover:opacity-90",
+          cancelButton: "bg-muted/80 text-muted-foreground font-medium px-4 py-1.5 rounded-lg transition-colors hover:bg-muted",
+        },
+      }}
+      position="top-right"
       {...props}
     />
   )
