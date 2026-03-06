@@ -1,5 +1,8 @@
 // "use server";
 
+import { db } from "@/firebase/admin";
+import { GoogleGenAI } from "@google/genai";
+
 // import { generateObject } from "ai";
 // import { google } from "@ai-sdk/google";
 
@@ -109,17 +112,13 @@
 //   })) as Interview[];
 // }
 
-// export async function getInterviewsByUserId(
-//   userId: string
-// ): Promise<Interview[] | null> {
-//   const interviews = await db
-//     .collection("interviews")
-//     .where("userId", "==", userId)
-//     .orderBy("createdAt", "desc")
-//     .get();
+export async function getInterviewsById( userId : string ) : Promise<Interview[] | null>{
 
-//   return interviews.docs.map((doc) => ({
-//     id: doc.id,
-//     ...doc.data(),
-//   })) as Interview[];
-// }
+    const interviews = await db.collection('interviews').where( 'userId' === userId ).orderBy('çreatedAt' , "desc").get()
+    return interviews.docs.map(
+        doc => ({
+            id : doc.id,
+            ...doc.data()
+        })
+    ) as Interview[]
+}

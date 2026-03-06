@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, db } from "@/firebase/admin";
+import { auth , db } from "@/firebase/admin";
 import { cookies } from "next/headers";
 
 // Session duration (1 week)
@@ -92,7 +92,6 @@ export async function signIn(params: SignInParams) {
 // Sign out user by clearing the session cookie
 export async function signOut() {
   const cookieStore = await cookies();
-
   cookieStore.delete("session");
 }
 

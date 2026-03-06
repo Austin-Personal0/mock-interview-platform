@@ -1,12 +1,25 @@
+import { Button } from '@/components/ui/button'
 import { isAuthenticated } from '@/lib/actions/auth.action'
 import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebase/client'
 
 const RootLayout = async ( { children} : { children : ReactNode }) => {
 
   const authenticated = await isAuthenticated()
+
+  const logoutOut = async () => {
+    try {
+      await signOut(auth).then( () => {
+        
+      })
+    } catch (error) {
+      
+    }
+  }
 
   if( !authenticated ) redirect('/sign-up')
 

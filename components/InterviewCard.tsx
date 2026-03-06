@@ -6,21 +6,31 @@ import {getRandomInterviewCover} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
+import { useEffect, useState } from 'react';
 
 const InterviewCard = ({ interviewId , techstack , type , role , userId , createdAt}: InterviewCardProps) => {
+
+    const [ coverImage , setCoverImage ] = useState<string>('')
 
     const feedback = null as Feedback | null;
     const normalizedType = /mix/gi.test(type) ? 'Mixed' : type
     const formattedDate = dayjs(feedback?.createdAt || createdAt ).format('MMM D,YYYY')
+    
+    useEffect( () => {
+      setCoverImage(getRandomInterviewCover())  
+    } , [])
+    
     return(
-        <div className='card-border w-[360px] max-sm:w-full min-h-96'>
+        <div className='card-border w-90 max-sm:w-full min-h-96'>
             <div className='card-interview'>
                 <div>
                     <div className='absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg bg-light-600'>
                         <p className='badge-text'>{normalizedType}</p>
                     </div>
 
-                    <Image src={getRandomInterviewCover()} alt='cover image' width={90} height={90} className='rounded-full object-fit size-[90px]'/>
+                    {
+                        coverImage && (<Image src={coverImage} alt='cover image' width={90} height={90} className='rounded-full object-fit size-22.5'/>)
+                    }
 
                     <h3 className='mt-5 capitalize'>
                         {role} Interview
