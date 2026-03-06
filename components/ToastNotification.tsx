@@ -1,5 +1,3 @@
-"use client";
-
 import { toast } from "sonner";
 
 export type ToastType = "success" | "error" | "warning" | "info";
